@@ -58,17 +58,20 @@ function print(line){
     function fun(parent, kids){
         kids = kids.map(kid => kid.trim())
         if(parent.startsWith("loop")){
-            parent = parent.split(" ")
+            parent = parent.split(":")[0].split(" ").filter(p => p != '')            
             if(parent.length == 3){
-            var target = parent[1]
-            var key = parent[2]
+            var target = parent[1].split("%")[1]
+            var key = parent[2].split(":")[0]
             
             
-            if(operation[target.split("%")[1]]['type'] == 'list'){
+            
+            if(operation[target]['type'] == 'list'){
 
-                for(i of operation[target.split("%")[1]]['value']){
-                operation[key.split("%")[1].split(":")[0]] = {}
-                operation[key.split("%")[1].split(":")[0]]['value'] = i.split("") 
+                for(i of operation[target]['value']){
+                operation[key.split("%")[1]] = {}
+                operation[key.split("%")[1]]['value'] = i.split("") 
+
+                
                                
                 kids.forEach(kid =>{
                     translate(kid)
